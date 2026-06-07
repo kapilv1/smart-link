@@ -48,7 +48,16 @@ app.get('/api/hello', async (req, res) => {
     res.status(500).json({ error: 'MongoDB connection failed' });
   }
 });
-
+app.get('/api/test-mongo', async (req, res) => {
+  try {
+    const client = await connectDB();
+    const db = client.db('myDatabase'); // Replace with your DB name
+    const collections = await db.listCollections().toArray();
+    res.json({ collections });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 // Local server start (for development)
 if (require.main === module) {
   (async () => {
