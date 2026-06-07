@@ -1,6 +1,3 @@
-
-
-
 // backend/index.js
 require('dotenv').config();
 const express = require('express');
@@ -75,3 +72,6 @@ if (require.main === module) {
     }
   })();
 }
+
+// Export for serverless (Vercel)
+module.exports = app;
