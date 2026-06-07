@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
-const API_URL = "https://vercel.app";
+const API_URL = "https://smart-link-henna.vercel.app";
 
 function getType(url) {
   const lowerUrl = url.toLowerCase();
