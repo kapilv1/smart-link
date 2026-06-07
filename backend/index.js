@@ -7,9 +7,8 @@ const { MongoClient, ObjectId, ServerApiVersion } = require("mongodb");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-
 const allowedOrigins = [
-  "https://smart-link-ia4j.vercel.app",
+  "https://smart-link-iq4j.vercel.app",
   "https://smart-link-complated.vercel.app",
   "http://localhost:3000",
   "http://localhost:5173"
