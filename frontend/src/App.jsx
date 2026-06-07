@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
-const API_URL = import.meta.env.VITE_API_URL || "https://localhost:5000";
+const API_URL = "http://localhost:5000/api";
 
 function getType(url) {
   const lowerUrl = url.toLowerCase();
@@ -126,7 +126,7 @@ function App() {
 
   const authHeaders = {
     "Content-Type": "application/json",
-    ...(user ? { "x-user-id": user.id } : {})
+    "x-user-id": user?.id,
   };
 
   const newLinksCount = newLinksText.split("\n").filter((x) => x.trim()).length;
@@ -167,7 +167,6 @@ function App() {
     const res = await fetch(`${API_URL}/profiles`, {
       headers: authHeaders,
     });
-    console.log(res)
 
     const data = await res.json();
 
@@ -187,7 +186,6 @@ function App() {
     const res = await fetch(`${API_URL}/profiles/${profileId}/links`, {
       headers: authHeaders,
     });
-    console.log(res)
 
     const data = await res.json();
 
@@ -207,7 +205,6 @@ function App() {
       headers: authHeaders,
       body: JSON.stringify({ name }),
     });
-    console.log(res)
 
     const data = await res.json();
 
@@ -296,7 +293,7 @@ function App() {
       headers: authHeaders,
       body: JSON.stringify({ links: validLinks }),
     });
-    console.log(res)
+
     const data = await res.json();
 
     if (!res.ok) {
