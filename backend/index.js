@@ -12,7 +12,13 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB connection
-const uri = process.env.MONGO_URI;
+// Prefer MONGODB_URI (matches `server.js`); fall back to legacy MONGO_URI if present
+const uri = process.env.MONGODB_URI || process.env.MONGO_URI;
+if (!uri) {
+  console.error('MONGODB_URI environment variable is missing!');
+  process.exit(1);
+}
+
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
