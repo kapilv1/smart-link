@@ -226,3 +226,108 @@ textarea:focus {
   justify-content: center;
   font-weight: 800;
 }
+
+.change-password-box {
+  max-width: 420px;
+  margin: 15px auto;
+  padding: 15px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+.change-password-box input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.navbar {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.navbar a,
+.navbar button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  background: #222;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.manage-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 20px;
+}
+
+.user-list,
+.profile-tree {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.user-card {
+  padding: 12px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.active-user {
+  background: #eef3ff;
+  border-color: #4c6fff;
+}
+
+.selected-user-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.signup-alert {
+  max-width: 600px;
+  margin: 15px auto;
+  padding: 15px;
+  background: #fff7d6;
+  border: 1px solid #f0c94a;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.signup-request-card {
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.signup-request-card button {
+  margin: 5px;
+}
+
+.waiting-box {
+  padding: 20px;
+  background: #eef3ff;
+  border-radius: 10px;
+  margin: 10px 0;
+}
