@@ -12,12 +12,8 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB connection
-// Prefer MONGODB_URI (matches `server.js`); fall back to legacy MONGO_URI if present
+// Prefer MONGODB_URI; fall back to legacy MONGO_URI if present
 const uri = process.env.MONGODB_URI || process.env.MONGO_URI;
-if (!uri) {
-  console.error('MONGODB_URI environment variable is missing!');
-  process.exit(1);
-}
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -36,15 +32,28 @@ async function connectDB() {
     console.error("MongoDB connection error:", err);
   }
 }
-
-connectDB();
+// Do not connect automatically on import — connect when running the server locally.
 
 // Sample route to test backend → frontend connection
 app.get('/api/hello', (req, res) => {
   res.json({ message: "Hello from backend!" });
 });
 
-// Start server
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+// Start server only when running directly (keeps module usable as a serverless handler).
+if (require.main === module) {
+  (async () => {
+    if (!uri) {
+      console.error('MONGODB_URI environment variable is missing!');
+      process.exit(1);
+    }
+
+    await connectDB();
+
+    app.listen(port, () => {
+      console.log(`Server running on port ${port}`);
+    });
+  })();
+}
+
+// Export the app so platforms like Vercel can use it as a serverless handler.
+module.exports = app;
