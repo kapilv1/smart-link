@@ -11,49 +11,58 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// MongoDB connection
-// Prefer MONGODB_URI; fall back to legacy MONGO_URI if present
-const uri = process.env.MONGODB_URI || process.env.MONGO_URI;
-
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
+// MongoDB connection caching for serverless
+let cachedClient = null;
 
 async function connectDB() {
-  try {
-    await client.connect();
-    await client.db("admin").command({ ping: 1 });
-    console.log("MongoDB connected successfully!");
-  } catch (err) {
-    console.error("MongoDB connection error:", err);
-  }
-}
-// Do not connect automatically on import — connect when running the server locally.
+  if (cachedClient) return cachedClient;
 
-// Sample route to test backend → frontend connection
-app.get('/api/hello', (req, res) => {
-  res.json({ message: "Hello from backend!" });
+  const uri = process.env.MONGODB_URI || process.env.MONGO_URI;
+  if (!uri) {
+    throw new Error('MONGODB_URI environment variable is missing!');
+  }
+
+  const client = new MongoClient(uri, {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    },
+  });
+
+  await client.connect();
+  cachedClient = client;
+  console.log('MongoDB connected successfully!');
+  return client;
+}
+
+// Sample route
+app.get('/api/hello', async (req, res) => {
+  try {
+    const client = await connectDB();
+    // Example MongoDB usage if needed
+    // const db = client.db('myDatabase');
+    res.json({ message: 'Hello from backend!' });
+  } catch (err) {
+    console.error('MongoDB connection error:', err);
+    res.status(500).json({ error: 'MongoDB connection failed' });
+  }
 });
 
-// Start server only when running directly (keeps module usable as a serverless handler).
+// Local server start (for development)
 if (require.main === module) {
   (async () => {
-    if (!uri) {
-      console.error('MONGODB_URI environment variable is missing!');
+    try {
+      await connectDB();
+      app.listen(port, () => {
+        console.log(`Server running on port ${port}`);
+      });
+    } catch (err) {
+      console.error(err);
       process.exit(1);
     }
-
-    await connectDB();
-
-    app.listen(port, () => {
-      console.log(`Server running on port ${port}`);
-    });
   })();
 }
 
-// Export the app so platforms like Vercel can use it as a serverless handler.
+// Export for serverless (Vercel)
 module.exports = app;
