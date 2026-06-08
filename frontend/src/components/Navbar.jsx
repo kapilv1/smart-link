@@ -1,31 +1,46 @@
+import {
+    FaHome,
+    FaUsers,
+    FaKey,
+    FaSignOutAlt
+} from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import SignupAlert from "./SignupAlert";
 
 function Navbar({ user, setUser }) {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  function logout() {
-    localStorage.removeItem("user");
-    setUser(null);
-    navigate("/signin");
-  }
+    function logout() {
+        localStorage.removeItem("user");
+        setUser(null);
+        navigate("/signin");
+    }
 
-  return (
-    <>
-      <div className="navbar">
-        <Link to="/home">Home</Link>
-        <Link to="/changepassword">Change Password</Link>
+    return (
+        <>
+            <div className="navbar">
+                <Link to="/home">
+                    <FaHome /> Home
+                </Link>
 
-        {user?.role === "manager" && (
-          <Link to="/manageaccount">Manage Account</Link>
-        )}
+                <Link to="/changepassword">
+                    <FaKey /> Change Password
+                </Link>
 
-        <button onClick={logout}>Logout</button>
-      </div>
+                {user?.role === "manager" && (
+                    <Link to="/manageaccount">
+                        <FaUsers /> Manage Account
+                    </Link>
+                )}
 
-      <SignupAlert user={user} />
-    </>
-  );
+                <button onClick={logout}>
+                    <FaSignOutAlt /> Logout
+                </button>
+            </div>
+
+            <SignupAlert user={user} />
+        </>
+    );
 }
 
 export default Navbar;

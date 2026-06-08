@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import ProfileSection from "../components/ProfileSection";
 import LinkFilterSection from "../components/LinkFilterSection";
-
+import { useNavigate } from "react-router-dom";
 import { getProfiles, createProfile } from "../services/profileService";
 import {
     getLinks,
@@ -14,6 +14,7 @@ import {
 import { getType, getSearchEngine } from "../utils/linkParser";
 
 function Home({ user, setUser }) {
+    const navigate = useNavigate();
     const [profiles, setProfiles] = useState([]);
     const [links, setLinks] = useState([]);
     const [selectedProfile, setSelectedProfile] = useState("");
@@ -28,7 +29,14 @@ function Home({ user, setUser }) {
     useEffect(() => {
         loadProfiles();
     }, []);
+    function openHistory() {
+        if (!selectedProfile) {
+            setStatus("Please select profile first.");
+            return;
+        }
 
+        navigate(`/history/${selectedProfile}`);
+    }
     useEffect(() => {
         if (selectedProfile) {
             loadLinks(selectedProfile);
@@ -289,8 +297,8 @@ function Home({ user, setUser }) {
                 selectedProfile={selectedProfile}
                 setSelectedProfile={setSelectedProfile}
                 addProfile={addProfile}
+                openHistory={openHistory}
             />
-
             <LinkFilterSection
                 newLinksText={newLinksText}
                 setNewLinksText={setNewLinksText}

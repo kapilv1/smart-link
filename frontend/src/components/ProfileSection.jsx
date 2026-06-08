@@ -1,8 +1,11 @@
+import { FaPlus, FaHistory } from "react-icons/fa";
+
 function ProfileSection({
     profiles,
     selectedProfile,
     setSelectedProfile,
     addProfile,
+    openHistory,
 }) {
     return (
         <div className="profile-section">
@@ -19,7 +22,13 @@ function ProfileSection({
                 ))}
             </select>
 
-            <button onClick={addProfile}>Add</button>
+            <button onClick={addProfile}>
+                <FaPlus /> Add
+            </button>
+
+            <button onClick={openHistory}>
+                <FaHistory /> History
+            </button>
         </div>
     );
 }

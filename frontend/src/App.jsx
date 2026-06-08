@@ -5,7 +5,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-
+import History from "./pages/History";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
@@ -30,7 +30,14 @@ function App() {
         <Route path="/signin" element={<SignIn setUser={setUser} />} />
 
         <Route path="/signup" element={<SignUp setUser={setUser} />} />
-
+        <Route
+          path="/history/:profileId"
+          element={
+            <ProtectedRoute user={user}>
+              <History user={user} setUser={setUser} />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/home"
           element={

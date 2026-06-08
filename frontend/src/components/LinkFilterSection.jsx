@@ -1,3 +1,10 @@
+import {
+    FaCopy,
+    FaSave,
+    FaDownload,
+    FaTrash
+} from "react-icons/fa";
+
 function LinkFilterSection({
     newLinksText,
     setNewLinksText,
@@ -52,10 +59,21 @@ function LinkFilterSection({
             </div>
 
             <div className="button-section">
-                <button onClick={copyLinks}>Copy Links</button>
-                <button onClick={saveLinks}>Save</button>
-                <button onClick={downloadLinks}>Download CSV</button>
-                <button onClick={deleteAllLinks}>Delete All</button>
+                <button onClick={copyLinks}>
+                    <FaCopy /> Copy Links
+                </button>
+
+                <button onClick={saveLinks}>
+                    <FaSave /> Save
+                </button>
+
+                <button onClick={downloadLinks}>
+                    <FaDownload /> Download CSV
+                </button>
+
+                <button onClick={deleteAllLinks}>
+                    <FaTrash /> Delete All
+                </button>
             </div>
         </>
     );

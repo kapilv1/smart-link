@@ -170,4 +170,39 @@ router.delete("/:profileId/links/all", getUserFromHeader, async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+router.delete("/:profileId/links", getUserFromHeader, async (req, res) => {
+  try {
+    const { linkIds } = req.body;
+    const profileId = toObjectId(req.params.profileId);
+
+    if (!profileId) {
+      return res.status(400).json({ error: "Invalid profile ID" });
+    }
+
+    if (!Array.isArray(linkIds) || linkIds.length === 0) {
+      return res.status(400).json({ error: "linkIds must be a non-empty array" });
+    }
+
+    const profile = await checkProfilePermission(req, res, profileId);
+    if (!profile) return;
+
+    const objectIds = linkIds
+      .map((id) => toObjectId(id))
+      .filter(Boolean);
+
+    const db = await connectDB();
+
+    const result = await db.collection("links").deleteMany({
+      _id: { $in: objectIds },
+      profileId,
+    });
+
+    res.json({
+      message: "Selected links deleted.",
+      deletedCount: result.deletedCount,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 module.exports = router;
