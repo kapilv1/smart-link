@@ -1,3 +1,7 @@
+/* =========================
+   Global Reset
+========================= */
+
 * {
   box-sizing: border-box;
 }
@@ -36,6 +40,24 @@ button:active {
   transform: scale(0.98);
 }
 
+input,
+select,
+textarea {
+  outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+
+/* =========================
+   Layout
+========================= */
+
 .app {
   min-height: 100vh;
   padding: 24px;
@@ -52,6 +74,18 @@ h2 {
   margin: 0 0 14px;
   color: #334155;
 }
+
+.status {
+  text-align: center;
+  margin-top: 18px;
+  font-weight: 800;
+  color: #334155;
+}
+
+
+/* =========================
+   Navbar
+========================= */
 
 .navbar {
   max-width: 1100px;
@@ -80,6 +114,60 @@ h2 {
   background: #2563eb;
 }
 
+
+/* =========================
+   Auth Pages
+========================= */
+
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 430px;
+  background: white;
+  padding: 34px;
+  border-radius: 24px;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.15);
+  border: 1px solid #e2e8f0;
+}
+
+.auth-card h1 {
+  margin-top: 0;
+  font-size: 34px;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+}
+
+.auth-card button {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.auth-card p {
+  text-align: center;
+}
+
+.auth-card a {
+  color: #2563eb;
+  font-weight: 800;
+}
+
+
+/* =========================
+   Profile Section
+========================= */
+
 .profile-section {
   max-width: 850px;
   margin: 0 auto 28px;
@@ -102,6 +190,11 @@ h2 {
   background: white;
   font-weight: 600;
 }
+
+
+/* =========================
+   Link Filter Page
+========================= */
 
 .main-section {
   max-width: 1250px;
@@ -128,15 +221,12 @@ h2 {
   border-radius: 16px;
   padding: 16px;
   font-size: 15px;
-  outline: none;
   background: #f8fafc;
   line-height: 1.5;
 }
 
 .box textarea:focus {
-  border-color: #2563eb;
   background: white;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
 }
 
 .filter-box {
@@ -182,62 +272,10 @@ h2 {
   background: #dc2626;
 }
 
-.status {
-  text-align: center;
-  margin-top: 18px;
-  font-weight: 800;
-  color: #334155;
-}
 
-.auth-page {
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 20px;
-}
-
-.auth-card {
-  width: 100%;
-  max-width: 430px;
-  background: white;
-  padding: 34px;
-  border-radius: 24px;
-  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.15);
-  border: 1px solid #e2e8f0;
-}
-
-.auth-card h1 {
-  margin-top: 0;
-  font-size: 34px;
-}
-
-.auth-card input {
-  width: 100%;
-  padding: 13px;
-  margin-bottom: 12px;
-  border-radius: 12px;
-  border: 1px solid #cbd5e1;
-  outline: none;
-}
-
-.auth-card input:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
-}
-
-.auth-card button {
-  width: 100%;
-  margin-top: 8px;
-}
-
-.auth-card p {
-  text-align: center;
-}
-
-.auth-card a {
-  color: #2563eb;
-  font-weight: 800;
-}
+/* =========================
+   Signup Manager Alert
+========================= */
 
 .signup-alert {
   max-width: 640px;
@@ -268,6 +306,11 @@ h2 {
   border-radius: 16px;
   text-align: center;
 }
+
+
+/* =========================
+   Manage Account Page
+========================= */
 
 .manage-layout {
   max-width: 1200px;
@@ -314,6 +357,11 @@ h2 {
   background: #dc2626;
 }
 
+
+/* =========================
+   History Page
+========================= */
+
 .history-top {
   display: flex;
   justify-content: center;
@@ -327,13 +375,7 @@ h2 {
   padding: 14px;
   border: 1px solid #cbd5e1;
   border-radius: 14px;
-  outline: none;
   font-size: 16px;
-}
-
-.history-search:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
 }
 
 .date-nav {
@@ -439,7 +481,16 @@ h2 {
   background: #7c3aed;
 }
 
+
+/* =========================
+   Responsive Design
+========================= */
+
 @media (max-width: 900px) {
+  h1 {
+    font-size: 34px;
+  }
+
   .main-section {
     grid-template-columns: 1fr;
   }
@@ -456,7 +507,7 @@ h2 {
     flex-wrap: wrap;
   }
 
-  h1 {
-    font-size: 34px;
+  .navbar {
+    flex-wrap: wrap;
   }
 }
